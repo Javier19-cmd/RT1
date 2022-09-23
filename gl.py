@@ -26,7 +26,7 @@ def point(x, y, c):
 
 def cast_ray(orig, direction): #Método para el rayo. 
 
-    s = Sphere(V3(-3, 0, -16), 2) #Creando la esfera.
+    s = Sphere(V3(-3, -5, -16), 2) #Creando la esfera.
     
     if s.ray_intersect(orig, direction): #Si el rayo intersecta con la esfera.
         #Retornando un color.
