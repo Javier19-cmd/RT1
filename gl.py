@@ -1,6 +1,7 @@
 from ray import *
 from utilidades import *
-
+from math import *
+from vector import *
 
 c1 = Raytracer(); #Instancia de la clase Raytracer.
 
@@ -20,7 +21,25 @@ def glColor(r, g, b): #Función para el color de la figura.
 #Defininiendo el point.
 def point(x, y): 
     if y > 0 and y < c1.height and x > 0 and x < c1.width:
-        c1.framebuffer[y][x] = color(0, 0, 0)
+        c1.framebuffer[y][x] = c1.colorPunto
+
+def cast_ray(orig, direction): #Método para el rayo.
+    #Cosas mágicas.
+    #Retornando un color.
+    return color(1, 0, 0)
 
 def finish():
+
+    aspectRatio = c1.width / c1.height #Relación de aspecto.
+    tana = tan(60 * 0.5 * pi / 180) #Tangente del ángulo.
+
+    for y in range(c1.height):
+        for x in range(c1.width):
+            i = ((2 * (x + 0.5) / c1.width) - 1) * tana * aspectRatio
+            j = -(2 * (y + 0.5) / c1.height) * tana
+            direction = (V3(i, j, -1)).normalice()
+
+            c = cast_ray(V3(0, 0, 0), direction) #Llamando al método para el rayo.
+
+            point(x, y, c)
     c1.write()
