@@ -10,7 +10,7 @@ class Sphere(object): #Clase para esferas.
 
         l = L.len() #Longitud de L al cuadrado.
 
-        d2 = tca**2 - l**2 #Distancia al cuadrado.
+        d2 = l**2 - tca**2 #Distancia al cuadrado.
         
 
         if d2 > self.radius**2: #Si la distancia al cuadrado es mayor al radio al cuadrado.
@@ -22,9 +22,10 @@ class Sphere(object): #Clase para esferas.
         t1 = tca + thc #Distancia al cuadrado.
         
         if t0 < 0: #Si la distancia al cuadrado es menor a 0.
+            t0 = t1 #Distancia al cuadrado.
+        
+        if t0 < 0:  #Si la distancia al cuadrado es menor a 0.
             return False
         
-        if t1 < 0:  #Si la distancia al cuadrado es menor a 0.
-            return False
 
         return True
