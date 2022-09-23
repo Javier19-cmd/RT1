@@ -2,6 +2,7 @@ from ray import *
 from utilidades import *
 from math import *
 from vector import *
+from sphere import *
 
 c1 = Raytracer(); #Instancia de la clase Raytracer.
 
@@ -19,14 +20,18 @@ def glColor(r, g, b): #Función para el color de la figura.
     c1.colorPunto = color(r, g, b); #Se le asigna el color.
 
 #Defininiendo el point.
-def point(x, y): 
-    if y > 0 and y < c1.height and x > 0 and x < c1.width:
-        c1.framebuffer[y][x] = c1.colorPunto
+def point(x, y, c): 
+    c1.framebuffer[y][x] = c; #Se le asigna el color.
 
 def cast_ray(orig, direction): #Método para el rayo.
-    #Cosas mágicas.
-    #Retornando un color.
-    return color(1, 0, 0)
+
+    s = Sphere(V3(-3, 0, -16), 2) #Creando la esfera.
+    
+    if s.ray_intersect(orig, direction): #Si el rayo intersecta con la esfera.
+        #Retornando un color.
+        return color(1, 0, 0)
+    else: #Si no intersecta.
+        return c1.color
 
 def finish():
 

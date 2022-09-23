@@ -19,7 +19,7 @@ class Raytracer(object):
     def write(self): #Escribir un archivo, pero con el zbuffer.
             
             #Se abre el archivo con la forma de bw.
-            f = open("Dutch_Angle.bmp", "bw")
+            f = open("HT1.bmp", "bw")
 
             #Se escribe el encabezado del archivo.
 
