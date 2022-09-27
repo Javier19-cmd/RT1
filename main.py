@@ -6,6 +6,7 @@ def main():
     glClear() 
     glColor(0, 0, 0)
     #point(400, 300)
+    cast_ray(V3(0, 0, -5), V3(0, 0, -5))
     finish()
 
 main()
