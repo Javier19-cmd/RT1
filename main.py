@@ -4,10 +4,12 @@ def main():
     glCreateWindow(2028, 2028)  
     glClearColor(1, 1, 1) 
     glClear() 
-    glColor(0, 0, 0)
     #Creando array para las esferas.
-    glSphere(3, 1, -16, 0.5)
-    #glSphere(-3, 2, -16, 2)
+    glColor(1, 0, 0)
+    #glSphere(3, 1, -16, 0.5)
+
+    glSphere(3, 2, -16, 2)
+    
     #glSphere(-4, 3, -16, 2)
     
     #Creando esferas.

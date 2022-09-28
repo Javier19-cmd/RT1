@@ -4,18 +4,37 @@ from math import *
 from vector import *
 from sphere import *
 
-c1 = Raytracer(); #Instancia de la clase Raytracer.
+c1 = Raytracer() #Instancia de la clase Raytracer.
 
 
 def glCreateWindow(width, height): #Función para crear la ventana.
-    c1.width = width; #Se le asigna el ancho.
-    c1.height = height; #Se le asigna el alto.
+    try: #Verificar que el tamaño sea un número.
+        #Saber si las dimensiones son múltiplos de 4.
+        if width % 4 == 0 and height % 4 == 0:
+            
+            #Creando las dimensiones de la pantalla.
+
+            c1.width = width #Ancho de la pantalla.
+            c1.height = height #Alto de la pantalla.
+
+        elif width < 0 or height < 0: #Si las dimensiones son negativas, entonces se imprime un error.
+            print("Error")
+        else: 
+            print("Error")
+    
+    except (TypeError, ZeroDivisionError): #Si en caso es NoneType, entonces se imprime esta excepción.
+        print("Ocurrió un problema con el tamaño de la imagen.")
+    #except: #Si en caso se escribió una letra en vez de número, entonces se imprime esta excepción.
+     #   print("Se ingresó una letra en vez de número.")
 
 def glClearColor(r, g, b): #Función para el color de fondo.
     c1.color = color(r, g, b); #Se le asigna el color.
 
 def glClear(): #Función para limpiar la pantalla.
-    c1.framebuffer = [[c1.color for x in range(c1.width)] for y in range(c1.height)]; #Se crea el framebuffer.
+    c1.framebuffer = [
+            [c1.color for x in range(c1.width)] 
+            for y in range(c1.height)
+        ] #Se crea el framebuffer.
 
 def glColor(r, g, b): #Función para el color de la figura.
     c1.colorPunto = color(r, g, b); #Se le asigna el color.
@@ -23,7 +42,7 @@ def glColor(r, g, b): #Función para el color de la figura.
 #Defininiendo el point.
 def point(x, y, c): 
     if x < c1.width and y < c1.height and x >= 0 and y >= 0:
-        c1.framebuffer[y][x] = c or c1.color
+        c1.framebuffer[y][x] = c
 
 def glSphere(x, y, z, r):
     c1.spheres.append(Sphere(V3(x, y, z), r))
@@ -36,8 +55,9 @@ def cast_ray(orig, direction): #Método para el rayo.
 
     for sphere in c1.spheres: #Recorriendo el array de esferas.
         sphereIntersection = sphere.ray_intersect(orig, direction) #Llamando al método para la intersección de la esfera, para validar si el rayo intersecta con la esfera.
+        #print(sphereIntersection)
         if sphereIntersection: #Si el rayo intersecta con la esfera.
-            return color(0, 0, 1)
+            return c1.colorPunto #Se regresa el color de la figura.
         else:  #Si el rayo no intersecta con la esfera.
             return c1.color
 
@@ -54,6 +74,6 @@ def finish():
             direction = (V3(i, j, -1)).normalice()
 
             c = cast_ray(origin, direction) #Llamando al método para el rayo.
-
+        
             point(x, y, c)
     c1.write()
