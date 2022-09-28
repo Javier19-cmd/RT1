@@ -14,6 +14,7 @@ class Raytracer(object):
         self.scene = [] #Lista de objetos.
         self.clear_color = color(0, 0, 0) #Color para limpiar el framebuffer.
         self.current_color = color(1, 1, 1) #Color actual.
+        self.density = 1 #Densidad.
         #self.clear() #Limpia el framebuffer.
     
     def clear(self): #Limpia el framebuffer.
@@ -51,5 +52,5 @@ class Raytracer(object):
         for o in self.scene:
             if o.ray_intersect(origin, direction): #Si el rayo intersecta con la esfera.
                 return color(0, 1, 0)
-            else: #Si no intersecta.
-                return self.current_color
+        else: #Si no intersecta.
+            return self.current_color
