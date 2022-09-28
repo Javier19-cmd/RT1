@@ -1,12 +1,24 @@
-from gl import * 
+#Importando el archivo de raytracer.
+from ray import *
+from sphere import *
+from vector import *
 
-def main(): 
-    glCreateWindow(1024, 1024)  
-    glClearColor(1, 1, 1) 
-    glClear() 
-    glColor(0, 0, 0)
-    #point(400, 300)
-    cast_ray(V3(0, 0, -5), V3(0, 0, -5))
-    finish()
+#Creando la ventana.
+r = Raytracer(1024, 1024)
 
-main()
+r.clear() #Limpia el framebuffer.
+
+
+#Creando un círculo.
+# r.scene.append(Sphere(V3(0, 0, -5), 1))
+# r.scene.append(Sphere(V3(-3, 0, -16), 2))
+
+r.scene = [
+    Sphere(V3(-3, 0, -5), 1),
+    Sphere(V3(-3, 0, -16), 2) 
+]
+
+#r.point(512, 512, color(1, 0, 0)) #Dibujando punto de momento.
+r.render() #Renderizando.
+
+r.write("out.bmp")

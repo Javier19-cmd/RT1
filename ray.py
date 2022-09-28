@@ -1,58 +1,55 @@
+from library import * #Importando la librería de raytracer.
 from utilidades import * #Archivo de utilidades.
-
+from utilidades import * #Archivo de utilidades.
+from math import *
+from vector import * #Importando el archivo de vectores.
+from sphere import * #Importando el archivo de esferas.
 
 #Clase para el raytracer.
 class Raytracer(object):
-    #Ancho y alto de la imagen.
-    width  = 0; 
-    height = 0;
-    #Variable para el framebuffer.
-    framebuffer = 0; 
+    def __init__(self, width, height): #Constructor para la clase Raytracer.
+        self.width = width
+        self.height = height
+        self.framebuffer = [] #Frame buffer.
+        self.scene = [] #Lista de objetos.
+        self.clear_color = color(0, 0, 0) #Color para limpiar el framebuffer.
+        self.current_color = color(1, 1, 1) #Color actual.
+        #self.clear() #Limpia el framebuffer.
+    
+    def clear(self): #Limpia el framebuffer.
+        self.framebuffer = [
+            [self.clear_color for x in range(self.width)]
+            for y in range(self.height)
+        ]
+    
+    def point(self, x, y, c = None): #Punto para dibujar.
+        if (y >= 0 and y < self.height) and (x >= 0 and x < self.width): #Si el punto está dentro del framebuffer.
+            self.framebuffer[y][x] = c or self.current_color 
+    
+    def write(self, filename): #Escribe el archivo.
+        writebmp(filename, self.width, self.height, self.framebuffer)
+    
+    def render(self): #Renderiza el framebuffer.
+        fov = int(pi/2) #Ángulo de visión.
+        aspect_ratio = self.width / self.height #Relación de aspecto.
+        tana = tan(fov/2) #Tangente del ángulo de visión.
 
-    #Variable para guardar el color.
-    color = 0;
 
-    #Variable para guardar el color del punto. 
-    colorPunto = 0;
+        for y in range(self.height): 
+            for x in range(self.width):
+                i = (2 * (x + 0.5) / self.width - 1) * tana * aspect_ratio
+                j = (1 - 2 * (y + 0.5) / self.height) * tana
 
-    #Método que escribe el archivo bmp.
-    def write(self): #Escribir un archivo, pero con el zbuffer.
-            
-            #Se abre el archivo con la forma de bw.
-            f = open("HT1.bmp", "bw")
-
-            #Se escribe el encabezado del archivo.
-
-            #Haciendo el pixel header.
-            f.write(char('B'))
-            f.write(char('M'))
-            #Escribiendo el tamaño del archivo en bytes.
-            f.write(dword(14 + 40 + self.width * self.height * 3))
-            f.write(dword(0)) #Cosa que no se utilizará en este caso.
-            f.write(dword(14 + 40)) #Offset a la información de la imagen. 14 bytes para el header, 40 para la información de la imagen. Aquí empieza la data.
-            #Lo anterior suma 14 bytes.
-
-            #Información del header.
-            f.write(dword(40)) #Este es el tamaño del header. Esto es de 4 bytes, por eso se utiliza el dword.
-            f.write(dword(self.width)) #Ancho de la imagen. Esto es de 4 bytes, por eso se utiliza el dword.
-            f.write(dword(self.height)) #Alto de la imagen. Esto es de 4 bytes, por eso se utiliza el dword.
-            f.write(word(1)) #Número de planos. Esto es de 2 bytes, por eso se utiliza el word.
-            f.write(word(24)) #24 bits por pixel. Esto es porque usa el true color y el RGB.
-            f.write(dword(0)) #Esto es la compresión. Esto es de 4 bytes, por eso se utiliza el dword.
-            f.write(dword(self.width * self.height * 3)) #Tamaño de la imagen sin el header.
-            #Pixels que no se usarán mucho.
-            f.write(dword(0))
-            f.write(dword(0))
-            f.write(dword(0))
-            f.write(dword(0))
-            #Lo anterior suma 40 bytes.
-
-            #print("Framebuffer", framebuffer)
-            #Pintando el archivo de color negro.
-            for y in range(self.height):
-                for x in range(self.width):
-                    f.write(self.framebuffer[y][x])
-
-            #print("Archivo escrito")
-
-            f.close() #Cerrando el archivo que se escribió.
+                direction = V3(i, j, -1).normalice() #Dirección del rayo.
+                origin = V3(0, 0, 0) #Origen del rayo.
+                c = self.cast_ray(origin, direction) #Lanza el rayo.
+                self.point(x, y, c)
+    
+    def cast_ray(self, origin, direction): #Método para lanzar rayos.
+        #s = Sphere(V3(-3, 0, -16), 2) #Creando una esfera.
+        #print(self.scene)
+        for o in self.scene:
+            if o.ray_intersect(origin, direction): #Si el rayo intersecta con la esfera.
+                return color(0, 1, 0)
+            else: #Si no intersecta.
+                return self.current_color
