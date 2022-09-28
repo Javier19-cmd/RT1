@@ -58,8 +58,8 @@ def cast_ray(orig, direction): #Método para el rayo.
         #print(sphereIntersection)
         if sphereIntersection: #Si el rayo intersecta con la esfera.
             return c1.colorPunto #Se regresa el color de la figura.
-        else:  #Si el rayo no intersecta con la esfera.
-            return c1.color
+    else:  #Si el rayo no intersecta con la esfera.
+        return c1.color
 
 def finish():
     fov = int(pi/2)
