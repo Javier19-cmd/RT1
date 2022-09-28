@@ -15,6 +15,9 @@ class Raytracer(object):
     #Variable para guardar el color del punto. 
     colorPunto = 0;
 
+    #Variable para guardar la matriz de esferas.
+    spheres = []
+
     #Método que escribe el archivo bmp.
     def write(self): #Escribir un archivo, pero con el zbuffer.
             

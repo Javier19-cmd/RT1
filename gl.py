@@ -22,32 +22,38 @@ def glColor(r, g, b): #Función para el color de la figura.
 
 #Defininiendo el point.
 def point(x, y, c): 
-    c1.framebuffer[y][x] = c; #Se le asigna el color.
+    if x < c1.width and y < c1.height and x >= 0 and y >= 0:
+        c1.framebuffer[y][x] = c or c1.color
+
+def glSphere(x, y, z, r):
+    c1.spheres.append(Sphere(V3(x, y, z), r))
 
 def cast_ray(orig, direction): #Método para el rayo. 
-
-    # Creando array
-
-    s = Sphere(orig, direction) #Creando la esfera.
     
-    if s.ray_intersect(orig, direction): #Si el rayo intersecta con la esfera.
-        #Retornando un color.
-        return color(1, 0, 0)
-    else: #Si no intersecta.
-        return c1.color
+    #s = Sphere(V3(-3, -5, -16), 1) #Creando la esfera.
+
+    #print(c1.spheres)
+
+    for sphere in c1.spheres: #Recorriendo el array de esferas.
+        sphereIntersection = sphere.ray_intersect(orig, direction) #Llamando al método para la intersección de la esfera, para validar si el rayo intersecta con la esfera.
+        if sphereIntersection: #Si el rayo intersecta con la esfera.
+            return color(0, 0, 1)
+        else:  #Si el rayo no intersecta con la esfera.
+            return c1.color
 
 def finish():
-
+    fov = int(pi/2)
     aspectRatio = c1.width / c1.height #Relación de aspecto.
-    tana = tan(60 * 0.5 * pi / 180) #Tangente del ángulo.
+    tana = tan(fov/2) #Tangente del ángulo.
 
     for y in range(c1.height):
         for x in range(c1.width):
             i = ((2 * (x + 0.5) / c1.width) - 1) * tana * aspectRatio
-            j = -(2 * (y + 0.5) / c1.height) * tana
+            j = (1 - ( 2 * (y + 0.5) / c1.height)) * tana
+            origin = V3(0, 0, 0)
             direction = (V3(i, j, -1)).normalice()
 
-            c = cast_ray(V3(0, 0, 0), direction) #Llamando al método para el rayo.
+            c = cast_ray(origin, direction) #Llamando al método para el rayo.
 
             point(x, y, c)
     c1.write()
