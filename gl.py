@@ -44,8 +44,9 @@ def point(x, y, c):
     if x < c1.width and y < c1.height and x >= 0 and y >= 0:
         c1.framebuffer[y][x] = c
 
-def glSphere(x, y, z, r):
-    c1.spheres.append(Sphere(V3(x, y, z), r))
+def glSphere(x, y, z, r, col):
+    c1.spheres.append(Sphere(V3(x, y, z), r)) #Guardando la esfera en el array de esferas.
+    c1.colors.append(col) #Guardando el color de la esfera.
 
 def cast_ray(orig, direction): #Método para el rayo. 
     
@@ -57,7 +58,8 @@ def cast_ray(orig, direction): #Método para el rayo.
         sphereIntersection = sphere.ray_intersect(orig, direction) #Llamando al método para la intersección de la esfera, para validar si el rayo intersecta con la esfera.
         #print(sphereIntersection)
         if sphereIntersection: #Si el rayo intersecta con la esfera.
-            return c1.colorPunto #Se regresa el color de la figura.
+            #Se retorna el color de la esfera.
+            return c1.colors[c1.spheres.index(sphere)]
     else:  #Si el rayo no intersecta con la esfera.
         return c1.color
 

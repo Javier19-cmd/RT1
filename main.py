@@ -1,4 +1,5 @@
 from gl import * 
+from utilidades import * #Archivo de utilidades.
 
 def main(): 
     glCreateWindow(2028, 2028)  
@@ -8,14 +9,14 @@ def main():
     glColor(1, 0, 0)
     #glSphere(3, 1, -16, 0.5)
 
-    glSphere(3, 2, -16, 2)
+    glSphere(3, 2, -16, 2, color(1, 0, 0))
     
     #glSphere(-4, 3, -16, 2)
     
     #Creando esferas.
     #glSphere(0, 0, -5, 1)
     #glSphere(-3, 2, -16, 2)
-    glSphere(-4, -1, -5, 2)
+    glSphere(-4, -1, -5, 2, color(0, 1, 0))
     #glSphere(0, -100.5, -1, 100)
     # glSphere(1, 0, -5, 1)
     # glSphere(-1, 0, -5, 1)
