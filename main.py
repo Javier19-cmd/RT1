@@ -15,11 +15,10 @@ def main():
     #Creando esferas.
     #glSphere(0, 0, -5, 1)
     #glSphere(-3, 2, -16, 2)
-    #glSphere(0, -1, -5, 2)
+    glSphere(-4, -1, -5, 2)
     #glSphere(0, -100.5, -1, 100)
     # glSphere(1, 0, -5, 1)
     # glSphere(-1, 0, -5, 1)
-    # glSphere(0, 0, -5, 1)
     
 
     finish()
