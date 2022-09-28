@@ -20,11 +20,18 @@ def main():
     glSphere(3,        2, -16, 2, color(1, 0, 0)) #Esfera 1 color rojo.
     
     #Creando botones del tronco del muñeco.
-    glSphere(2.3,      -0.7, -12, 0.1, color(0.1, 0.5, 0.4)) #Esfera 3 color azul.
+    glSphere(2.3,      -0.9, -12, 0.2, color(0.1, 0.5, 0.4)) #Esfera 3 color azul.
     
     #Tronco.
     glSphere(3.8,     -1, -20, 2, color(0, 1, 0)) #Esfera 2 color verde.
     
+    #Ojos.
+    glSphere(2.1,      -2.6, -12, 0.1, color(0.6, 0.1, 0.5)) #Primer ojo.
+    glSphere(2.5,      -2.6, -12, 0.1, color(0.6, 0.1, 0.5)) #Segundo ojo.
+
+    #Nariz.
+    glSphere(2.3,     -2.3, -12, 0.1, color(0.1, 0.3, 0.2)) #Nariz.
+
     #Cabeza.
     glSphere(3.45,   -3.5, -18, 1, color(0, 0, 1)) #Esfera 3 color azul.
 
