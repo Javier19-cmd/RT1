@@ -24,7 +24,7 @@ class Raytracer(object):
     #Método que escribe el archivo bmp.
     def write(self): #Escribir un archivo, pero con el zbuffer.
             #Se abre el archivo con la forma de bw.
-            f = open("HT1.bmp", "bw")
+            f = open("RT1.bmp", "bw")
             
             #Se escribe el encabezado del archivo.
 
